@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/PJS_projekt/static/css/main.e6c13ad2.css",
+    "main.js": "/PJS_projekt/static/js/main.cabf7d60.js",
+    "static/js/453.22d40fb0.chunk.js": "/PJS_projekt/static/js/453.22d40fb0.chunk.js",
+    "index.html": "/PJS_projekt/index.html",
+    "main.e6c13ad2.css.map": "/PJS_projekt/static/css/main.e6c13ad2.css.map",
+    "main.cabf7d60.js.map": "/PJS_projekt/static/js/main.cabf7d60.js.map",
+    "453.22d40fb0.chunk.js.map": "/PJS_projekt/static/js/453.22d40fb0.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.e6c13ad2.css",
+    "static/js/main.cabf7d60.js"
+  ]
+}
