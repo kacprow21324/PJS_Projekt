@@ -1,38 +1,429 @@
-.App {
+:root {
+  --bg-dark: #111;
+  --bg-medium: #222;
+  --border: #444;
+  --primary-blue: #08f;
+  --primary-cyan: #0ff;
+  --neon-yellow: #ffeb3b;
+  --purple-light: #b39ddb;
+  --purple-dark: #7e57c2;
+  --danger-light: #e57373;
+  --danger-dark: #f44336;
+  --text-light: #eee;
+  --text-medium: #ccc;
+  --text-secondary: #bbb;
+}
+
+/* Reset i baza */
+body, html, #root {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background: var(--bg-dark);
+  color: var(--text-light);
+}
+
+/* Kontener */
+.container {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+/* Nagłówek w aplikacji */
+header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+header h1 {
+  flex: 1;
+  font-size: 2rem;
+  margin: 0;
+  color: #fff;
+}
+
+/* Wspólne reguły dla przycisków */
+.btn,
+.btn-like,
+.btn-dislike,
+.btn-delete {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  margin: 0.25rem;
+  border: none;
+  border-radius: 8px;
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.1s, box-shadow 0.2s;
+}
+
+/* Zredukowane światło (glow) */
+.btn {
+  background: linear-gradient(135deg, var(--primary-blue), var(--primary-cyan));
+  box-shadow: 0 0 4px var(--primary-cyan);
+}
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 6px var(--primary-cyan);
+}
+.btn:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+/* Przycisk Lubię – ten sam glow co pozytywny wynik posta */
+.btn-like {
+  background: linear-gradient(135deg, var(--neon-yellow), #ffc107);
+  box-shadow: 0 0 4px var(--neon-yellow);
+}
+.btn-like:hover {
+  box-shadow: 0 0 6px var(--neon-yellow);
+}
+
+/* Przycisk Nie lubię */
+.btn-dislike {
+  background: linear-gradient(135deg, var(--purple-light), var(--purple-dark));
+  box-shadow: 0 0 4px var(--purple-light);
+}
+.btn-dislike:hover {
+  box-shadow: 0 0 6px var(--purple-light);
+}
+
+/* Przycisk Usuń */
+.btn-delete {
+  background: linear-gradient(135deg, var(--danger-light), var(--danger-dark));
+  box-shadow: 0 0 4px var(--danger-light);
+}
+.btn-delete:hover {
+  box-shadow: 0 0 6px var(--danger-light);
+}
+
+/* Formularz nowego posta */
+.post.new-post {
+  background: var(--bg-medium);
+  border-radius: 8px;
+  padding: 2rem;
+  margin-bottom: 1.5rem;
+}
+.new-post h2 {
+  text-align: center;
+  font-size: 1.5rem;
+  margin: 0 0 0.5rem;
+  color: #fff;
+}
+.new-post p {
+  text-align: center;
+  margin: 0 0 1rem;
+  color: var(--text-medium);
+}
+.post.new-post input[type="text"],
+.post.new-post textarea {
+  width: 100%;
+  padding: 0.5rem;
+  margin: 0.25rem 0;
+  background: var(--bg-dark);
+  color: var(--text-light);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+}
+.post.new-post textarea {
+  resize: vertical;
+}
+
+/* Styl pól i textarea w regularnych postach */
+.post input,
+.post textarea {
+  width: 100%;
+  padding: 0.5rem;
+  margin: 0.25rem 0;
+  background: var(--bg-dark);
+  color: var(--text-light);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+}
+.post textarea {
+  resize: vertical;
+}
+
+.post.new-post .btn {
+  display: block;
+  margin: 1rem auto 0;
+}
+
+/* Karty posta */
+.post {
+  background: var(--bg-medium);
+  border-radius: 8px;
+  padding: 1rem;
+  margin: 0.75rem 0;
+  transition: box-shadow 0.2s;
+}
+.post:hover {
+  box-shadow: 0 0 8px var(--primary-blue);
+}
+.post .post-author {
+  text-align: center;
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+  margin-bottom: 0.5rem;
+}
+.post h3 {
+  text-align: center;
+  font-size: 1.5rem;
+  margin: 0.25rem 0;
+}
+.post .post-text {
+  text-align: center;
+  font-size: 1.2rem;
+  margin-bottom: 0.75rem;
+}
+.post .post-score {
+  text-align: center;
+  font-size: 1.2rem;
+  margin-bottom: 0.75rem;
+}
+.post .post-score.positive {
+  color: var(--neon-yellow);
+  text-shadow: 0 0 8px var(--neon-yellow);
+}
+.post .post-score.negative {
+  color: var(--purple-light);
+  text-shadow: 0 0 8px var(--purple-light);
+}
+
+/* Odpowiedzi */
+.reply {
+  background: var(--bg-medium);
+  border-left: 3px solid var(--primary-blue);
+  border-radius: 8px;
+  padding: 0.75rem;
+  margin: 0.75rem 0 0 1rem;
+}
+.reply textarea {
+  width: 100%;
+  padding: 0.5rem;
+  margin-bottom: 0.5rem;
+  background: var(--bg-dark);
+  color: var(--text-light);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  resize: vertical;
+}
+.reply .reply-score {
+  font-size: 1rem;
+  margin: 0 0.5rem;
+}
+.reply .reply-score.positive {
+  color: var(--neon-yellow);
+  text-shadow: 0 0 6px var(--neon-yellow);
+}
+.reply .reply-score.negative {
+  color: var(--purple-light);
+  text-shadow: 0 0 6px var(--purple-light);
+}
+
+/* Panel logowania */
+.login-panel {
+  text-align: center;
+  padding: 2rem;
+  background: var(--bg-medium);
+  border-radius: 8px;
+  margin-top: 2rem;
+}
+.login-panel h2 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  color: var(--primary-cyan);
+  border-bottom: 2px solid var(--primary-cyan);
+  display: inline-block;
+  padding-bottom: 0.5rem;
+}
+.login-panel p {
+  color: var(--text-light);
+  margin: 0.5rem 0;
+}
+.login-panel input[type="text"],
+.login-panel input[type="password"] {
+  display: block;
+  width: 100%;
+  max-width: 300px;
+  padding: 0.5rem;
+  margin: 0.5rem auto;
+  background: #000;
+  color: var(--text-light);
+  border: 1px solid var(--border);
+  border-radius: 4px;
   text-align: center;
 }
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.login-panel input[type="text"]::placeholder,
+.login-panel input[type="password"]::placeholder {
+  color: var(--text-medium);
+}
+.login-panel .btn {
+  display: block;
+  margin: 1rem auto 0;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+/* Responsywność */
+@media (max-width: 480px) {
+  .container {
+    padding: 0 0.5rem;
+  }
+  .btn,
+  .btn-like,
+  .btn-dislike,
+  .btn-delete {
+    padding: 0.75rem 1.25rem;
   }
 }
+.post {
+  text-align: left;
+  border: 1px solid #ccc;
+  padding: 0.5rem;
+  margin: 0.5rem 0;
+}
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.post-header {
+  cursor: pointer;
+  font-size: 1.25rem;
+  margin: 0 0 0.5rem;
+}
+
+.post-author {
+  color: #666;
+  font-size: 0.9rem;
+  margin: 0 0 0.75rem;
+}
+
+.post-content {
+  margin: 0 0 0.75rem;
+}
+
+.post-footer {
+  border-top: 1px solid #ccc;
+  padding-top: 0.5rem;
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.post-actions button {
+  margin-left: 0.5rem;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.post-actions button {
+  border: none;
+  padding: 0.4rem 0.8rem;
+  margin-left: 0.5rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: box-shadow .2s;
+}
+
+/* Lubię */
+.btn-like {
+  background-color: #ffd700;
+  color: #222;
+}
+.btn-like.active,
+.btn-like:hover {
+  box-shadow: 0 0 5px #ffd700;
+}
+
+/* Nie lubię */
+.btn-dislike {
+  background-color: #9370db;
+  color: #fff;
+}
+.btn-dislike.active,
+.btn-dislike:hover {
+  box-shadow: 0 0 5px #9370db;
+}
+
+/* Usuń */
+.btn-delete {
+  background-color: #e74c3c;
+  color: #fff;
+}
+.btn-delete:hover {
+  box-shadow: 0 0 5px #e74c3c;
+}
+
+/* Podświetlenie liczby polubień */
+.post-score {
+  font-weight: bold;
+}
+.post-score.liked {
+  text-shadow: 0 0 5px #ffd700;
+}
+.post-score.disliked {
+  text-shadow: 0 0 5px #9370db;
+}
+
+.toggle-btn {
+  background: transparent;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-right: 0.5rem;
+}
+
+/* Rekursywne wcięcie odpowiedzi */
+.nested-replies {
+  margin-left: 1.5rem;
+  border-left: 1px solid rgba(255,255,255,0.2);
+  padding-left: 1rem;
+}
+
+/* Reply box */
+.reply {
+  margin: 0.75rem 0;
+}
+.reply-header {
+  display: flex;
+  align-items: center;
+}
+.reply-author {
+  font-weight: bold;
+}
+.reply-text {
+  margin: 0.25rem 0;
+}
+.reply-actions button {
+  margin-right: 0.5rem;
+  background: #444;
+  color: #fff;
+  border: none;
+  padding: 0.3rem 0.6rem;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+/* Formularz odpowiedzi */
+.reply-form {
+  margin-top: 1rem;
+}
+.reply-form textarea {
+  width: 100%;
+  height: 4rem;
+  margin-bottom: 0.5rem;
+}
+.reply-form button {
+  padding: 0.4rem 0.8rem;
+}
+
+.post .post-score.neutral {
+  color: #fff;
+  text-shadow: none;
+}
+
+/* analogicznie dla małych odpowiedzi, jeśli ich wynik ma być również biały */
+.reply .reply-score.neutral {
+  color: #fff;
+  text-shadow: none;
 }
